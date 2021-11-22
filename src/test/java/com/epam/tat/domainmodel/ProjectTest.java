@@ -1,5 +1,7 @@
 package com.epam.tat.domainmodel;
 
+import com.epam.tat.domainmodel.candies.Candy;
+import com.epam.tat.domainmodel.candies.CandyBase;
 import com.epam.tat.domainmodel.giftbox.GiftBox;
 import com.epam.tat.domainmodel.util.Finding;
 import com.epam.tat.domainmodel.util.Sorting;

@@ -5,24 +5,14 @@ import com.epam.tat.domainmodel.util.Finding;
 import com.epam.tat.domainmodel.util.Sorting;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * Class Description:
- * Implement interfaces: Sorting and Finding and
- * their methods for sorting candies by name or weight and
- * finding candies by parameters.
- * <p>
- */
-public class GiftBox {
-    /**
-     * No actions are required for class variable candiesList.
-     */
+public class GiftBox implements Sorting, Finding {
+
     private List<Candy> candiesList;
 
-    /**
-     * No actions are required for constructor GiftBox().
-     */
     public GiftBox() {
         candiesList = new ArrayList<Candy>();
     }
@@ -34,39 +24,43 @@ public class GiftBox {
         this.candiesList.add(candy);
     }
 
-    /**
-     * Implement sorting of candiesList by its names in ascending order
-     * and return sorted by name ascending list of candies.
-     */
     @Override
     public List<Candy> sortCandiesByNameAsc() {
-        throw new UnsupportedOperationException("You need to implement this method");
+        if (candiesList.isEmpty() || candiesList.size() == 1) {
+            return candiesList;
+        }
+        candiesList.sort(Comparator.comparing(Candy::getName));
+        return candiesList;
     }
 
-    /**
-     * Implement sorting of candiesList by its weight in ascending order
-     * and return sorted by weight ascending list of candies.
-     */
     @Override
     public List<Candy> sortCandiesByWeightAsc() {
-        throw new UnsupportedOperationException("You need to implement this method");
+        if (candiesList.isEmpty() || candiesList.size() == 1) {
+            return candiesList;
+        }
+        candiesList.sort(Comparator.comparingInt(Candy::getWeight));
+        return candiesList;
     }
 
-    /**
-     * Implement selection of candies from candiesList with names started with candyNameFirstLetter
-     * and return list of candies which names started with candyNameFirstLetter in name ascending list of candies.
-     */
     @Override
     public List<Candy> findCandiesByNameStartedWith(char candyNameFirstLetter) {
-        throw new UnsupportedOperationException("You need to implement this method");
+        if (candiesList.isEmpty()) {
+            return candiesList;
+        }
+        return candiesList.stream()
+                .filter(c -> c.getName().startsWith(String.valueOf(candyNameFirstLetter)))
+                .sorted(Comparator.comparing(Candy::getName))
+                .collect(Collectors.toList());
     }
 
-    /**
-     * Implement selection ot candies from candiesList so that its [weightFrom <= weight => weightTo]
-     * and return list of candies with weight in range [weightFrom, weightTo] in weight ascending list of candies.
-     */
     @Override
     public List<Candy> findCandiesByWeightInRange(int weightFrom, int weightTo) {
-        throw new UnsupportedOperationException("You need to implement this method");
+        if (candiesList.isEmpty()) {
+            return candiesList;
+        }
+        return candiesList.stream()
+                .filter(c -> (c.getWeight() >= weightFrom && c.getWeight() <= weightTo))
+                .sorted(Comparator.comparingInt(Candy::getWeight))
+                .collect(Collectors.toList());
     }
 }
