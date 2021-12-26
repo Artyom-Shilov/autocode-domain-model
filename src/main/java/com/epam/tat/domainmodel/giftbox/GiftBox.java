@@ -14,12 +14,9 @@ public class GiftBox implements Sorting, Finding {
     private List<Candy> candiesList;
 
     public GiftBox() {
-        candiesList = new ArrayList<Candy>();
+        candiesList = new ArrayList<>();
     }
 
-    /**
-     * No actions are required for method addCandy().
-     */
     public void addCandy(Candy candy) {
         this.candiesList.add(candy);
     }
